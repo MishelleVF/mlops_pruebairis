@@ -40,10 +40,11 @@ def decision_tree(
 
 
 @component(
-    base_image="gcr.io/deeplearning-platform-release/tf2-cpu.2-6:latest",
+    base_image="python:3.10-slim",
     packages_to_install=[
-        "pandas==1.3.5",
-        "joblib==1.1.0",
+        "pandas==2.2.2",
+        "scikit-learn==1.5.2",
+        "joblib==1.4.2",
     ],
 )
 def random_forest(
