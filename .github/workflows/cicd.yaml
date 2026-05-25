@@ -56,4 +56,4 @@ jobs:
           -H "Authorization: Bearer $(gcloud auth print-access-token)" \
           -F tags=latest \
           -F content=@pipeline.yaml \
-          https://us-central1-kfp.pkg.dev/project-c2c38c0d-53a2-459c-a19/mlops-iris
+          https://southamerica-west1-kfp.pkg.dev/project-c2c38c0d-53a2-459c-a19/mlops-iris
