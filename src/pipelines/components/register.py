@@ -3,7 +3,11 @@ from kfp.dsl import Input, Model, component
 
 @component(
     base_image="python:3.10-slim",
-    packages_to_install=["google-cloud-aiplatform"],
+    packages_to_install=[
+        "google-cloud-aiplatform==1.71.1",
+        "scikit-learn==1.5.2",
+        "joblib==1.4.2",
+    ],
 )
 def upload_model(
     project_id: str,

@@ -4,8 +4,9 @@ from kfp.dsl import Dataset, Input, Metrics, Model, Output, component
 @component(
     base_image="python:3.10-slim",
     packages_to_install=[
-        "pandas==1.3.5",
-        "joblib==1.1.0",
+        "pandas==2.2.2",
+        "scikit-learn==1.5.2",
+        "joblib==1.4.2",
     ],
 )
 def decision_tree(

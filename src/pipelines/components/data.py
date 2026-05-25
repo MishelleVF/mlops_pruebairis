@@ -4,8 +4,12 @@ from kfp.dsl import Dataset, Output, component
 @component(
     base_image="python:3.10-slim",
     packages_to_install=[
-        "pandas",
-        "google-cloud-bigquery",
+        "pandas==2.2.2",
+        "scikit-learn==1.5.2",
+        "google-cloud-bigquery==3.25.0",
+        "google-cloud-bigquery-storage==2.26.0",
+        "pyarrow==17.0.0",
+        "db-dtypes==1.3.0",
     ],
 )
 
