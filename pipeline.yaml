@@ -144,7 +144,7 @@ deploymentSpec:
           random_forest_accuracy\", rf_accuracy)\n\n    if dt_accuracy > rf_accuracy:\n\
           \        joblib.dump(dt, best_model.path)\n    else:\n        joblib.dump(rf,\
           \ best_model.path)\n\n"
-        image: gcr.io/deeplearning-platform-release/tf2-cpu.2-6:latest
+        image: python:3.10-slim
     exec-decision-tree:
       container:
         args:
@@ -183,7 +183,7 @@ deploymentSpec:
           \    model.fit(X_train, y_train)\n    pred = model.predict(X_test)\n   \
           \ acc = accuracy_score(y_test, pred)\n\n    metrics.log_metric(\"accuracy\"\
           , (acc))\n\n    joblib.dump(model, output_model.path)\n\n"
-        image: gcr.io/deeplearning-platform-release/tf2-cpu.2-6:latest
+        image: python:3.10-slim
     exec-load-data:
       container:
         args:
@@ -227,7 +227,7 @@ deploymentSpec:
           \    X_train[\"Species\"] = y_train\n    X_test[\"Species\"] = y_test\n\n\
           \    X_train.to_csv(f\"{train_dataset.path}\", index=False)\n    X_test.to_csv(f\"\
           {test_dataset.path}\", index=False)\n\n"
-        image: gcr.io/deeplearning-platform-release/tf2-cpu.2-6:latest
+        image: python:3.10-slim
     exec-random-forest:
       container:
         args:
@@ -299,7 +299,7 @@ deploymentSpec:
           \    aiplatform.init(project=project_id, location=location)\n\n    aiplatform.Model.upload_scikit_learn_model_file(\n\
           \        model_file_path=model.path,\n        display_name=\"IrisModelv5\"\
           ,\n        project=project_id,\n    )\n\n"
-        image: gcr.io/deeplearning-platform-release/tf2-cpu.2-6:latest
+        image: python:3.10-slim
 pipelineInfo:
   name: the-iris-pipeline-v-mish
 root:

@@ -2,7 +2,7 @@ from kfp.dsl import Input, Model, component
 
 
 @component(
-    base_image="gcr.io/deeplearning-platform-release/tf2-cpu.2-6:latest",
+    base_image="python:3.10-slim",
     packages_to_install=["google-cloud-aiplatform"],
 )
 def upload_model(
