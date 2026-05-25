@@ -1,5 +1,6 @@
 from kfp.dsl import Dataset, Input, Metrics, Model, Output, component
 
+
 @component(
     base_image="gcr.io/deeplearning-platform-release/tf2-cpu.2-6:latest",
     packages_to_install=[
@@ -7,9 +8,7 @@ from kfp.dsl import Dataset, Input, Metrics, Model, Output, component
         "joblib==1.1.0",
     ],
 )
-
 def choose_best_model(
-    
     test_dataset: Input[Dataset],
     decision_tree_model: Input[Model],
     random_forest_model: Input[Model],
@@ -24,7 +23,7 @@ def choose_best_model(
 
     dt = joblib.load(decision_tree_model.path)
     rf = joblib.load(random_forest_model.path)
-    
+
     dt_pred = dt.predict(test_data.drop("Species", axis=1))
     rf_pred = rf.predict(test_data.drop("Species", axis=1))
 

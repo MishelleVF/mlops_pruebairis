@@ -1,11 +1,15 @@
 from kfp.dsl import Dataset, Output, component
+
+
 @component(
     base_image="gcr.io/deeplearning-platform-release/tf2-cpu.2-6:latest",
-    packages_to_install=["pandas", 
-                         "google-cloud-bigquery",],
+    packages_to_install=[
+        "pandas",
+        "google-cloud-bigquery",
+    ],
 )
 
-#"Loads data from BigQuery, splits it into training and testing sets,
+# "Loads data from BigQuery, splits it into training and testing sets,
 # and saves them as CSV files."
 def load_data(
     project_id: str,
@@ -32,16 +36,14 @@ def load_data(
     del dfs
 
     df["Species"].replace(
-        {"Iris-setosa": 2, 
-         "Iris-versicolor": 0, 
-         "Iris-virginica": 1},
+        {"Iris-setosa": 2, "Iris-versicolor": 0, "Iris-virginica": 1},
         inplace=True,
-    ), 
+    ),
 
     X_train, X_test, y_train, y_test = train_test_split(
-        df.drop("Species", axis=1), 
-        df["Species"], 
-        test_size=0.2, 
+        df.drop("Species", axis=1),
+        df["Species"],
+        test_size=0.2,
         random_state=42,
     )
 

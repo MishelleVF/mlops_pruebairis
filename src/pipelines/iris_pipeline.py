@@ -1,4 +1,5 @@
 import sys
+
 import kfp
 
 sys.path.append("src")
@@ -9,7 +10,8 @@ PIPELINE_ROOT = "gs://mlops-demo-youtube/pipeline_root"
 
 @kfp.dsl.pipeline(
     name=PIPELINE_NAME,
-    pipeline_root = PIPELINE_ROOT,)
+    pipeline_root=PIPELINE_ROOT,
+)
 def pipeline(
     project_id: str,
     location: str,
@@ -29,12 +31,11 @@ def pipeline(
 
     dt_op = decision_tree(
         train_dataset=data_op.outputs["train_dataset"]
-        ).set_display_name("Decision Tree")
-    
+    ).set_display_name("Decision Tree")
+
     rf_op = random_forest(
         train_dataset=data_op.outputs["train_dataset"]
     ).set_display_name("Random Forest")
-
 
     choose_model_op = choose_best_model(
         test_dataset=data_op.outputs["test_dataset"],
@@ -42,24 +43,24 @@ def pipeline(
         random_forest_model=rf_op.outputs["output_model"],
     ).set_display_name("Select Best Model")
 
-
     upload_model(
         project_id=project_id,
         location=location,
         model=choose_model_op.outputs["best_model"],
     ).set_display_name("Register model")
 
+
 # consolidar todo este grafo pero en un yml,
 # esto ayuda que se comunique kfp con vertex ai,
-#  y asi se pueda ejecutar el pipeline desde vertex ai, 
-# sin necesidad de usar el sdk de kfp, y asi 
+#  y asi se pueda ejecutar el pipeline desde vertex ai,
+# sin necesidad de usar el sdk de kfp, y asi
 # se puede ejecutar el pipeline desde la consola de vertex ai,
-#  o desde gcloud cli, o desde cualquier otro lugar que pueda 
+#  o desde gcloud cli, o desde cualquier otro lugar que pueda
 # ejecutar un comando de gcloud cli.
 if __name__ == "__main__":
     kfp.compiler.Compiler().compile(
         pipeline_func=pipeline,
-        package_path=f"pipeline.yml", #se necesita trazabilidad de los pipelines a traves del tiempo
+        package_path=f"pipeline.yml",  # se necesita trazabilidad de los pipelines a traves del tiempo
     )
 
-#artefac register
+# artefac register

@@ -1,5 +1,6 @@
 from kfp.dsl import Dataset, Input, Metrics, Model, Output, component
 
+
 @component(
     base_image="gcr.io/deeplearning-platform-release/tf2-cpu.2-6:latest",
     packages_to_install=[
@@ -7,7 +8,6 @@ from kfp.dsl import Dataset, Input, Metrics, Model, Output, component
         "joblib==1.1.0",
     ],
 )
-
 def decision_tree(
     train_dataset: Input[Dataset],
     output_model: Output[Model],
@@ -22,9 +22,9 @@ def decision_tree(
     train = pd.read_csv(train_dataset.path)
 
     X_train, X_test, y_train, y_test = train_test_split(
-        train.drop("Species", axis=1), 
-        train["Species"], 
-        test_size=0.2, 
+        train.drop("Species", axis=1),
+        train["Species"],
+        test_size=0.2,
         random_state=42,
     )
 
@@ -37,6 +37,7 @@ def decision_tree(
 
     joblib.dump(model, output_model.path)
 
+
 @component(
     base_image="gcr.io/deeplearning-platform-release/tf2-cpu.2-6:latest",
     packages_to_install=[
@@ -44,8 +45,6 @@ def decision_tree(
         "joblib==1.1.0",
     ],
 )
-
-
 def random_forest(
     train_dataset: Input[Dataset],
     output_model: Output[Model],
@@ -60,9 +59,9 @@ def random_forest(
     train = pd.read_csv(train_dataset.path)
 
     X_train, X_test, y_train, y_test = train_test_split(
-        train.drop("Species", axis=1), 
-        train["Species"], 
-        test_size=0.2, 
+        train.drop("Species", axis=1),
+        train["Species"],
+        test_size=0.2,
         random_state=42,
     )
 
@@ -73,6 +72,4 @@ def random_forest(
 
     metrics.log_metric("accuracy", (acc))
 
-    joblib.dump(model, output_model.path
-)
-
+    joblib.dump(model, output_model.path)
