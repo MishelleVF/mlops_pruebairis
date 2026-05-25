@@ -60,7 +60,7 @@ def pipeline(
 if __name__ == "__main__":
     kfp.compiler.Compiler().compile(
         pipeline_func=pipeline,
-        package_path=f"pipeline.yml",  # se necesita trazabilidad de los pipelines a traves del tiempo
+        package_path=f"pipeline.yaml",  # se necesita trazabilidad de los pipelines a traves del tiempo
     )
 
 # artefac register
