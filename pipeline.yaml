@@ -302,7 +302,8 @@ deploymentSpec:
           \    )\n\n    uploaded_model = aiplatform.Model.upload_scikit_learn_model_file(\n\
           \        model_file_path=model.path,\n        display_name=\"IrisModelv5\"\
           ,\n        project=project_id,\n        location=location,\n        staging_bucket=staging_bucket,\n\
-          \        sync=True,\n    )\n\n    print(\"Modelo registrado correctamente:\"\
+          \        serving_container_image_uri=\"us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-5:latest\"\
+          ,\n        sync=True,\n    )\n\n    print(\"Modelo registrado correctamente:\"\
           )\n    print(uploaded_model.resource_name)\n\n"
         image: python:3.10-slim
 pipelineInfo:

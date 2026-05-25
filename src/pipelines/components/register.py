@@ -30,6 +30,7 @@ def upload_model(
         project=project_id,
         location=location,
         staging_bucket=staging_bucket,
+        serving_container_image_uri="us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-5:latest",
         sync=True,
     )
 
