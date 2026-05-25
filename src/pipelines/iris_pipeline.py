@@ -1,11 +1,13 @@
 import sys
+from pathlib import Path
 
 import kfp
 
-sys.path.append("src")
+PIPELINE_DIR = Path(__file__).resolve().parent
+sys.path.append(str(PIPELINE_DIR))
 
 PIPELINE_NAME = "The-Iris-Pipeline-v-mish"
-PIPELINE_ROOT = "gs://mlops-demo-youtube/pipeline_root"
+PIPELINE_ROOT = "gs://mlops-iris-mish-2026/pipeline_root"
 
 
 @kfp.dsl.pipeline(
@@ -15,7 +17,7 @@ PIPELINE_ROOT = "gs://mlops-demo-youtube/pipeline_root"
 def pipeline(
     project_id: str,
     location: str,
-    bd_dataset: str,
+    bq_dataset: str,
     bq_table: str,
 ):
     from components.data import load_data
@@ -25,7 +27,7 @@ def pipeline(
 
     data_op = load_data(
         project_id=project_id,
-        bq_dataset=bd_dataset,
+        bq_dataset=bq_dataset,
         bq_table=bq_table,
     ).set_display_name("Load Data from BQ")
 

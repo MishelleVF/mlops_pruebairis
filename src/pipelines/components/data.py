@@ -18,7 +18,7 @@ def load_data(
     train_dataset: Output[Dataset],
     test_dataset: Output[Dataset],
 ):
-    import pandas
+    import pandas as pd
     from google.cloud import bigquery
     from sklearn.model_selection import train_test_split
 
