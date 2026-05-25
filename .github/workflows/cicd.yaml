@@ -47,7 +47,7 @@ jobs:
         uses: 'google-github-actions/auth@v0.4.0'
         with:
           project_id: 'project-c2c38c0d-53a2-459c-a19'
-          workload_identify_provider: 'projects/403635817984/locations/global/workloadIdentityPools/github-mlops-iris/providers/github-mlops-provider'
+          workload_identity_provider: 'projects/403635817984/locations/global/workloadIdentityPools/github-mlops-iris/providers/github-mlops-provider'
           service_account: 'mlops-iris-prueba@project-c2c38c0d-53a2-459c-a19.iam.gserviceaccount.com'
 
       - name: Register
