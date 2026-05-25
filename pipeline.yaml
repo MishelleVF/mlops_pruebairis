@@ -297,9 +297,13 @@ deploymentSpec:
         - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
           \ *\n\ndef upload_model(\n    project_id: str,\n    location: str,\n   \
           \ model: Input[Model],\n):\n    from google.cloud import aiplatform\n\n\
-          \    aiplatform.init(project=project_id, location=location)\n\n    aiplatform.Model.upload_scikit_learn_model_file(\n\
+          \    staging_bucket = \"gs://mlops-iris-mish\"\n\n    aiplatform.init(\n\
+          \        project=project_id,\n        location=location,\n        staging_bucket=staging_bucket,\n\
+          \    )\n\n    uploaded_model = aiplatform.Model.upload_scikit_learn_model_file(\n\
           \        model_file_path=model.path,\n        display_name=\"IrisModelv5\"\
-          ,\n        project=project_id,\n    )\n\n"
+          ,\n        project=project_id,\n        location=location,\n        staging_bucket=staging_bucket,\n\
+          \        sync=True,\n    )\n\n    print(\"Modelo registrado correctamente:\"\
+          )\n    print(uploaded_model.resource_name)\n\n"
         image: python:3.10-slim
 pipelineInfo:
   name: the-iris-pipeline-v-mish

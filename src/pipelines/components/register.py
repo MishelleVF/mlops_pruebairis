@@ -16,10 +16,22 @@ def upload_model(
 ):
     from google.cloud import aiplatform
 
-    aiplatform.init(project=project_id, location=location)
+    staging_bucket = "gs://mlops-iris-mish"
 
-    aiplatform.Model.upload_scikit_learn_model_file(
+    aiplatform.init(
+        project=project_id,
+        location=location,
+        staging_bucket=staging_bucket,
+    )
+
+    uploaded_model = aiplatform.Model.upload_scikit_learn_model_file(
         model_file_path=model.path,
         display_name="IrisModelv5",
         project=project_id,
+        location=location,
+        staging_bucket=staging_bucket,
+        sync=True,
     )
+
+    print("Modelo registrado correctamente:")
+    print(uploaded_model.resource_name)
